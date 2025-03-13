@@ -13,8 +13,8 @@ Install the following extensions from the VS Code Marketplace:
 ## 🚀 Quick Setup Script
 ```bash
 cd ~/Developer
-dotnet new console -o MyDotNetProject
-cd MyDotNetProject
+dotnet new console -o MyNewCSharpApp
+cd MyNewCSharpApp
 echo 'using System;
 
 class Program
@@ -53,7 +53,7 @@ If your project is not using .NET 8, manually set the target framework.
 Open the project file:
 
 ```bash
-code MyDotNetProject.csproj
+code MyNewCSharpApp.csproj
 ```
 
 Ensure the `<TargetFramework>` is set to .NET 8:
