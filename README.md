@@ -31,19 +31,22 @@ Download the recommended .gitignore for C#/.NET projects
 curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/main/VisualStudio.gitignore
 ```
 
-Initialize Git and commit the setup
-```bash
-git init
-git add .
-git commit -m "Initial commit with .NET .gitignore"
-```
-
 ### Verify Installation
 
 ```bash
 ls -l
 dotnet --version
 dotnet run
+```
+
+### Initialize Git and commit the setup
+
+```bash
+git init
+git add .
+git commit -m "Initial commit with .NET .gitignore"
+git log
+git status
 ```
 
 ### (Optional) Force .NET 8 if Needed
@@ -101,11 +104,13 @@ Run the project:
 dotnet run
 ```
 
-Commit the update:
+### Commit the update:
 ```bash
 git status
 git add .
 git commit -m "Update to .NET version 8.0.309"
+git log
+git status
 ```
 
 
