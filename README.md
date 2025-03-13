@@ -7,9 +7,8 @@ Follow these steps to create a new **C#** project from scratch using **.NET** in
 ## Install C# Extensions in VS Code
 
 Install the following extensions from the VS Code Marketplace:
-- The C# extension and the .NET Install Tool will automatically be installed.
-
 - **[C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)**
+(The C# extension and the .NET Install Tool will automatically be installed.)
 
 ## 🚀 Quick Setup Script
 ```bash
