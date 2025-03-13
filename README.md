@@ -34,7 +34,7 @@ curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/main/Visua
 ### Verify Installation
 
 ```bash
-ls -l
+ls -a
 dotnet --version
 dotnet run
 ```
