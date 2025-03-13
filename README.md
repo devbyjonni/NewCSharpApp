@@ -1,6 +1,6 @@
 # NewCSharpApp
 
-Follow these steps to create a new C# project from scratch using **.NET** in **Visual Studio Code** on **Mac**.
+Follow these steps to create a new **C#** project from scratch using **.NET** in **Visual Studio Code** on **Mac**.
 
 ---
 
