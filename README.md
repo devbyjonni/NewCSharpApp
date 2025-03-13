@@ -7,16 +7,36 @@ Follow these steps to create a new **C#** project from scratch using **.NET** in
 ## Install C# Extensions in VS Code
 
 Install the following extensions from the VS Code Marketplace:
+- The C# extension and the .NET Install Tool will automatically be installed.
 
 - **[C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)**
 
 ## 🚀 Quick Setup Script
-
 ```bash
 cd ~/Developer
 dotnet new console -o MyDotNetProject
 cd MyDotNetProject
-dotnet run
+echo 'using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("New C# App Running");
+    }
+}' > Program.cs
+```
+
+Download the recommended .gitignore for C#/.NET projects
+```bash
+curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/main/VisualStudio.gitignore
+```
+
+Initialize Git and commit the setup
+```bash
+git init
+git add .
+git commit -m "Initial commit with .NET .gitignore"
 ```
 
 ### Verify Installation
@@ -24,6 +44,7 @@ dotnet run
 ```bash
 ls -l
 dotnet --version
+dotnet run
 ```
 
 ### (Optional) Force .NET 8 if Needed
