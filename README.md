@@ -21,7 +21,7 @@ class Program
 {
     static void Main()
     {
-        Console.WriteLine("New C# App Running");
+        Console.WriteLine("New C# App Running!");
     }
 }' > Program.cs
 ```
@@ -94,7 +94,7 @@ Expected output:
 Commit the update:
 ```bash
 git add .
-git commit -m ”Update to .NET version 8.0.309”
+git commit -m "Update to .NET version 8.0.309"
 ```
 
 Open the new project:
