@@ -21,7 +21,7 @@ class Program
 {
     static void Main()
     {
-        Console.WriteLine("New C# App Running!");
+        Console.WriteLine("New C# App Running! 🚀");
     }
 }' > Program.cs
 ```
