@@ -91,16 +91,23 @@ Expected output:
 8.0.309
 ```
 
-Commit the update:
-```bash
-git add .
-git commit -m "Update to .NET version 8.0.309"
-```
-
 Open the new project:
 ```bash
 code .
 ```
+
+Run the project:
+```bash
+dotnet run
+```
+
+Commit the update:
+```bash
+git status
+git add .
+git commit -m "Update to .NET version 8.0.309"
+```
+
 
 ---
 
