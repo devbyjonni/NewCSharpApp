@@ -9,7 +9,6 @@ Follow these steps to create a new C# project from scratch using **.NET** in **V
 Install the following extensions from the VS Code Marketplace:
 
 - **[C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)**
-- **[C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)**
 
 ## 🚀 Quick Setup Script
 
