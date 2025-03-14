@@ -71,13 +71,13 @@ public class UnitTestMainApp
 
         using (var sw = new System.IO.StringWriter())
         {
-            Console.SetOut(sw); // Redirect Console output to StringWriter
+            Console.SetOut(sw);
 
             // Act
-            Program.Main(); // Run the Main method in Program.cs
+            Program.Main();
 
             // Assert
-            var result = sw.ToString().Trim(); // Capture the output and trim any extra newlines
+            var result = sw.ToString().Trim();
             Assert.Equal(expectedOutput, result); // Ensure the output matches
         }
     }
