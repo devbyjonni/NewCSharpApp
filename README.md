@@ -15,50 +15,81 @@ Install the following extensions from the VS Code Marketplace:
 # Navigate to the Developer folder
 cd ~/Developer
 
-# Step 1: Create the main project folder (BankingApp)
-mkdir BankingApp
-cd BankingApp
+# Step 1: Create the main project folder (MainApp)
+mkdir MainApp
+cd MainApp
 
-# Step 2: Create the solution file
-dotnet new sln -n BankingApp
+# Step 2: Create the solution file for the project
+dotnet new sln -n MainApp
 
 # Step 3: Create the main app project in the 'src' folder
 mkdir src
 cd src
-dotnet new console -o BankingApp
+dotnet new console -o MainApp
 
 # Step 4: Create the test project in the 'tests' folder
 cd ..
 mkdir tests
 cd tests
-dotnet new xunit -n BankingApp.Tests
+dotnet new xunit -n MainApp.Tests
 
-# Step 5: Add the reference from the test project to the main app project (from top-level folder)
+# Step 5: Add the reference from the test project to the main app project
 cd ..
-dotnet add tests/BankingApp.Tests/BankingApp.Tests.csproj reference src/BankingApp/BankingApp.csproj
+dotnet add tests/MainApp.Tests/MainApp.Tests.csproj reference src/MainApp/MainApp.csproj
 
 # Step 6: Add both projects to the solution
-dotnet sln BankingApp.sln add src/BankingApp/BankingApp.csproj
-dotnet sln BankingApp.sln add tests/BankingApp.Tests/BankingApp.Tests.csproj
+dotnet sln MainApp.sln add src/MainApp/MainApp.csproj
+dotnet sln MainApp.sln add tests/MainApp.Tests/MainApp.Tests.csproj
 
-# Step 7: Add custom code to Program.cs in the main app
-cd src/BankingApp
+# Step 7: Update Program.cs to make the Program class public and add a namespace
+cd src/MainApp
 echo 'using System;
 
-class Program
+namespace MainApp
 {
-    static void Main()
+    public class Program
     {
-        Console.WriteLine("New C# App Running! 🚀");
+        public static void Main()
+        {
+            Console.WriteLine("Your C# App is Running! 🚀");
+        }
     }
 }' > Program.cs
 
-# Step 8: Rebuild the solution (ensure the projects are correctly linked)
-cd ~/Developer/BankingApp
+# Step 8: Add a simple unit test to check the output of Program.cs
+cd ../../tests/MainApp.Tests
+echo 'using Xunit;
+using MainApp; // Import the namespace of the MainApp class
+
+public class UnitTestMainApp
+{
+    [Fact]
+    public void Program_Output_ShouldBeCorrect()
+    {
+        // Arrange
+        var expectedOutput = "Your C# App is Running! 🚀";
+
+        using (var sw = new System.IO.StringWriter())
+        {
+            Console.SetOut(sw); // Redirect Console output to StringWriter
+
+            // Act
+            Program.Main(); // Run the Main method in Program.cs
+
+            // Assert
+            var result = sw.ToString().Trim(); // Capture the output and trim any extra newlines
+            Assert.Equal(expectedOutput, result); // Ensure the output matches
+        }
+    }
+}
+' > ProgramTests.cs
+
+# Step 9: Rebuild the solution (ensure the projects are correctly linked)
+cd ~/Developer/MainApp
 dotnet build
 
-# Step 9: Run the tests
-cd tests/BankingApp.Tests
+# Step 10: Run the tests
+cd tests/MainApp.Tests
 dotnet test
 ```
 
