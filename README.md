@@ -12,9 +12,37 @@ Install the following extensions from the VS Code Marketplace:
 
 ## 🚀 Quick Setup Script
 ```bash
+# Navigate to the Developer folder
 cd ~/Developer
-dotnet new console -o MyNewCSharpApp
-cd MyNewCSharpApp
+
+# Step 1: Create the main project folder (BankingApp)
+mkdir BankingApp
+cd BankingApp
+
+# Step 2: Create the solution file
+dotnet new sln -n BankingApp
+
+# Step 3: Create the main app project in the 'src' folder
+mkdir src
+cd src
+dotnet new console -o BankingApp
+
+# Step 4: Create the test project in the 'tests' folder
+cd ..
+mkdir tests
+cd tests
+dotnet new xunit -n BankingApp.Tests
+
+# Step 5: Add the reference from the test project to the main app project (from top-level folder)
+cd ..
+dotnet add tests/BankingApp.Tests/BankingApp.Tests.csproj reference src/BankingApp/BankingApp.csproj
+
+# Step 6: Add both projects to the solution
+dotnet sln BankingApp.sln add src/BankingApp/BankingApp.csproj
+dotnet sln BankingApp.sln add tests/BankingApp.Tests/BankingApp.Tests.csproj
+
+# Step 7: Add custom code to Program.cs in the main app
+cd src/BankingApp
 echo 'using System;
 
 class Program
@@ -24,6 +52,14 @@ class Program
         Console.WriteLine("New C# App Running! 🚀");
     }
 }' > Program.cs
+
+# Step 8: Rebuild the solution (ensure the projects are correctly linked)
+cd ~/Developer/BankingApp
+dotnet build
+
+# Step 9: Run the tests
+cd tests/BankingApp.Tests
+dotnet test
 ```
 
 Download the recommended .gitignore for C#/.NET projects
