@@ -21,6 +21,22 @@ CORE_PROJECT_FILE="DotnetConsoleApp"      # Console application .csproj file
 TEST_PROJECT_NAME="DotnetConsoleApp.Tests" # Test project folder
 TEST_PROJECT_FILE="DotnetConsoleApp.Tests" # Test project .csproj file
 
+FILE_NAME="Program"                       # Default main file name
+TEST_FILE_NAME="ProgramTests"             # Default test file name
+
+
+# Expected folder structure:
+# /Developer
+#     /DotnetConsoleApp
+#         DotnetConsoleApp.sln
+#         /DotnetConsoleApp
+#             Program.cs
+#             DotnetConsoleApp.csproj
+#         /DotnetConsoleApp.Tests
+#             ProgramTests.cs
+#             DotnetConsoleApp.Tests.csproj
+
+
 # Navigate to Developer folder
 cd ~/Developer
 
@@ -37,9 +53,9 @@ dotnet new console -o $CORE_PROJECT_NAME
 # Step 4: Replace the default Program.cs with the correct namespace
 echo 'using System;
 
-namespace DotnetConsoleApp
+namespace '"$SOLUTION_NAME"'
 {
-    public class Program
+    public class '"$FILE_NAME"'
     {
         public static void Main()
         {
@@ -47,7 +63,7 @@ namespace DotnetConsoleApp
         }
     }
 }
-' > $CORE_PROJECT_NAME/Program.cs
+' > $CORE_PROJECT_NAME/$FILE_NAME.cs
 
 # Step 5: Add the Core project to the solution
 dotnet sln add $CORE_PROJECT_NAME/$CORE_PROJECT_FILE.csproj
@@ -60,12 +76,12 @@ rm $TEST_PROJECT_NAME/UnitTest1.cs
 
 # Step 8: Create ProgramTests.cs inside the test project with correct namespace
 echo 'using Xunit;
-using DotnetConsoleApp;
+using '"$SOLUTION_NAME"';
 using System;
 
-namespace DotnetConsoleApp.Tests
+namespace '"$TEST_PROJECT_NAME"'
 {
-    public class ProgramTests
+    public class '"$TEST_FILE_NAME"'
     {
         [Fact]
         public void Program_Output_ShouldBeCorrect()
@@ -78,7 +94,7 @@ namespace DotnetConsoleApp.Tests
                 Console.SetOut(sw); // Redirect Console output to StringWriter
 
                 // Act
-                Program.Main(); // Run the Main method
+                '"$FILE_NAME"'.Main(); // Run the Main method
 
                 // Assert
                 var result = sw.ToString().Trim(); // Capture output and trim spaces
@@ -87,7 +103,7 @@ namespace DotnetConsoleApp.Tests
         }
     }
 }
-' > $TEST_PROJECT_NAME/ProgramTests.cs
+' > $TEST_PROJECT_NAME/$TEST_FILE_NAME.cs
 
 # Step 9: Add a reference from DotnetConsoleApp.Tests to DotnetConsoleApp
 dotnet add $TEST_PROJECT_NAME/$TEST_PROJECT_FILE.csproj reference $CORE_PROJECT_NAME/$CORE_PROJECT_FILE.csproj
@@ -99,7 +115,7 @@ dotnet sln add $TEST_PROJECT_NAME/$TEST_PROJECT_FILE.csproj
 dotnet build
 
 # Step 12: Rename UnitTest1.cs to ProgramTests.cs (Just in case)
-mv $TEST_PROJECT_NAME/UnitTest1.cs $TEST_PROJECT_NAME/ProgramTests.cs 2>/dev/null || true
+mv $TEST_PROJECT_NAME/UnitTest1.cs $TEST_PROJECT_NAME/$TEST_FILE_NAME.cs 2>/dev/null || true
 
 # Step 13: Run the tests
 cd $TEST_PROJECT_NAME
