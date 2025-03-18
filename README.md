@@ -12,85 +12,99 @@ Install the following extensions from the VS Code Marketplace:
 
 ## 🚀 Quick Setup Script
 ```bash
-# Navigate to the Developer folder
+#!/bin/bash
+
+# Define project names using best practices
+SOLUTION_NAME="DotnetConsoleApp"          # Root solution name
+CORE_PROJECT_NAME="DotnetConsoleApp"      # Console application folder
+CORE_PROJECT_FILE="DotnetConsoleApp"      # Console application .csproj file
+TEST_PROJECT_NAME="DotnetConsoleApp.Tests" # Test project folder
+TEST_PROJECT_FILE="DotnetConsoleApp.Tests" # Test project .csproj file
+
+# Navigate to Developer folder
 cd ~/Developer
 
-# Step 1: Create the main project folder (MainApp)
-mkdir MainApp
-cd MainApp
+# Step 1: Create the DotnetConsoleApp solution folder
+mkdir $SOLUTION_NAME
+cd $SOLUTION_NAME
 
-# Step 2: Create the solution file for the project
-dotnet new sln -n MainApp
+# Step 2: Create the solution file
+dotnet new sln -n $SOLUTION_NAME
 
-# Step 3: Create the main app project in the 'src' folder
-mkdir src
-cd src
-dotnet new console -o MainApp
+# Step 3: Create the DotnetConsoleApp console application project
+dotnet new console -o $CORE_PROJECT_NAME
 
-# Step 4: Create the test project in the 'tests' folder
-cd ..
-mkdir tests
-cd tests
-dotnet new xunit -n MainApp.Tests
-
-# Step 5: Add the reference from the test project to the main app project
-cd ..
-dotnet add tests/MainApp.Tests/MainApp.Tests.csproj reference src/MainApp/MainApp.csproj
-
-# Step 6: Add both projects to the solution
-dotnet sln MainApp.sln add src/MainApp/MainApp.csproj
-dotnet sln MainApp.sln add tests/MainApp.Tests/MainApp.Tests.csproj
-
-# Step 7: Update Program.cs to make the Program class public and add a namespace
-cd src/MainApp
+# Step 4: Replace the default Program.cs with the correct namespace
 echo 'using System;
 
-namespace MainApp
+namespace DotnetConsoleApp
 {
     public class Program
     {
         public static void Main()
         {
-            Console.WriteLine("Your C# App is Running! 🚀");
-        }
-    }
-}' > Program.cs
-
-# Step 8: Add a simple unit test to check the output of Program.cs
-cd ../../tests/MainApp.Tests
-echo 'using Xunit;
-using MainApp; // Import the namespace of the MainApp class
-
-public class UnitTestMainApp
-{
-    [Fact]
-    public void Program_Output_ShouldBeCorrect()
-    {
-        // Arrange
-        var expectedOutput = "Your C# App is Running! 🚀";
-
-        using (var sw = new System.IO.StringWriter())
-        {
-            Console.SetOut(sw);
-
-            // Act
-            Program.Main();
-
-            // Assert
-            var result = sw.ToString().Trim();
-            Assert.Equal(expectedOutput, result); // Ensure the output matches
+            Console.WriteLine("Dotnet Console App is Running! 🚀");
         }
     }
 }
-' > ProgramTests.cs
+' > $CORE_PROJECT_NAME/Program.cs
 
-# Step 9: Rebuild the solution (ensure the projects are correctly linked)
-cd ~/Developer/MainApp
+# Step 5: Add the Core project to the solution
+dotnet sln add $CORE_PROJECT_NAME/$CORE_PROJECT_FILE.csproj
+
+# Step 6: Create the DotnetConsoleApp.Tests xUnit test project
+dotnet new xunit -o $TEST_PROJECT_NAME
+
+# Step 7: Remove default UnitTest1.cs
+rm $TEST_PROJECT_NAME/UnitTest1.cs
+
+# Step 8: Create ProgramTests.cs inside the test project with correct namespace
+echo 'using Xunit;
+using DotnetConsoleApp;
+using System;
+
+namespace DotnetConsoleApp.Tests
+{
+    public class ProgramTests
+    {
+        [Fact]
+        public void Program_Output_ShouldBeCorrect()
+        {
+            // Arrange
+            var expectedOutput = "Dotnet Console App is Running! 🚀";
+
+            using (var sw = new System.IO.StringWriter())
+            {
+                Console.SetOut(sw); // Redirect Console output to StringWriter
+
+                // Act
+                Program.Main(); // Run the Main method
+
+                // Assert
+                var result = sw.ToString().Trim(); // Capture output and trim spaces
+                Assert.Equal(expectedOutput, result); // Ensure the output matches
+            }
+        }
+    }
+}
+' > $TEST_PROJECT_NAME/ProgramTests.cs
+
+# Step 9: Add a reference from DotnetConsoleApp.Tests to DotnetConsoleApp
+dotnet add $TEST_PROJECT_NAME/$TEST_PROJECT_FILE.csproj reference $CORE_PROJECT_NAME/$CORE_PROJECT_FILE.csproj
+
+# Step 10: Add the test project to the solution
+dotnet sln add $TEST_PROJECT_NAME/$TEST_PROJECT_FILE.csproj
+
+# Step 11: Build the solution
 dotnet build
 
-# Step 10: Run the tests
-cd tests/MainApp.Tests
+# Step 12: Rename UnitTest1.cs to ProgramTests.cs (Just in case)
+mv $TEST_PROJECT_NAME/UnitTest1.cs $TEST_PROJECT_NAME/ProgramTests.cs 2>/dev/null || true
+
+# Step 13: Run the tests
+cd $TEST_PROJECT_NAME
 dotnet test
+
 ```
 
 Download the recommended .gitignore for C#/.NET projects
