@@ -1,4 +1,4 @@
-# NewCSharpApp
+# DotnetConsoleApp
 
 Follow these steps to create a new **C#** project from scratch using **.NET** in **Visual Studio Code** on **Mac**.
 
@@ -10,7 +10,12 @@ Install the following extensions from the VS Code Marketplace:
 - **[C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)**
 (The C# extension and the .NET Install Tool will automatically be installed.)
 
+---
+
 ## 🚀 Quick Setup Script
+
+Use this script to automate the setup of a **C# .NET console app with tests**.
+
 ```bash
 #!/bin/bash
 
@@ -24,7 +29,6 @@ TEST_PROJECT_FILE="DotnetConsoleApp.Tests" # Test project .csproj file
 FILE_NAME="Program"                       # Default main file name
 TEST_FILE_NAME="ProgramTests"             # Default test file name
 
-
 # Expected folder structure:
 # /Developer
 #     /DotnetConsoleApp
@@ -35,7 +39,6 @@ TEST_FILE_NAME="ProgramTests"             # Default test file name
 #         /DotnetConsoleApp.Tests
 #             ProgramTests.cs
 #             DotnetConsoleApp.Tests.csproj
-
 
 # Navigate to Developer folder
 cd ~/Developer
@@ -120,15 +123,19 @@ mv $TEST_PROJECT_NAME/UnitTest1.cs $TEST_PROJECT_NAME/$TEST_FILE_NAME.cs 2>/dev/
 # Step 13: Run the tests
 cd $TEST_PROJECT_NAME
 dotnet test
-
 ```
 
-Download the recommended .gitignore for C#/.NET projects
+---
+
+## Download .gitignore for .NET Projects
+
 ```bash
 curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/main/VisualStudio.gitignore
 ```
 
-### Verify Installation
+---
+
+## ✅ Verify Installation
 
 ```bash
 ls -a
@@ -136,7 +143,9 @@ dotnet --version
 dotnet run
 ```
 
-### Initialize Git and commit the setup
+---
+
+## Initialize Git and Commit the Setup
 
 ```bash
 git init
@@ -146,32 +155,33 @@ git log
 git status
 ```
 
-### (Optional) Force .NET 8 if Needed
+---
+
+## (Optional) Force .NET 8 if Needed
 
 If your project is not using .NET 8, manually set the target framework.
 
 Open the project file:
-
 ```bash
-code MyNewCSharpApp.csproj
+code DotnetConsoleApp.csproj
 ```
 
 Ensure the `<TargetFramework>` is set to .NET 8:
-
 ```xml
 <TargetFramework>net8.0</TargetFramework>
 ```
 
 Restore dependencies and re-run the project:
-
 ```bash
 dotnet restore
 dotnet run
 ```
 
-### ⚠️ Force .NET 8 for Future Projects (If Needed)
+---
 
-If `dotnet --version` shows .NET 9, but you want to default to .NET 8, set it globally:
+## ⚠️ Set .NET 8 as Default for Future Projects (If Needed)
+
+If `dotnet --version` shows .NET 9 but you want to default to .NET 8, set it globally:
 
 ```bash
 dotnet new globaljson --sdk-version 8.0.309
@@ -180,28 +190,26 @@ dotnet run
 ```
 
 Verify:
-
 ```bash
 dotnet --version
 ```
 
 Expected output:
-
 ```bash
 8.0.309
 ```
 
-Open the new project:
+---
+
+## Open and Run the Project
 ```bash
 code .
-```
-
-Run the project:
-```bash
 dotnet run
 ```
 
-### Commit the update:
+---
+
+## Commit the Update
 ```bash
 git status
 git add .
@@ -210,8 +218,7 @@ git log
 git status
 ```
 
-
 ---
 
-✅ **All Set!**
+✅ **All Set!** 🚀
 
